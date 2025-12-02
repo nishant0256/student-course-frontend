@@ -3,11 +3,12 @@ import API from "../api/api";
 
 export default function Course() {
   const [courses, setCourses] = useState([]);
-  const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [editId, setEditId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchCourses();
@@ -51,7 +52,7 @@ export default function Course() {
   const editCourse = (course) => {
     setTitle(course.title);
     setDescription(course.description);
-
+    setEditId(course.id);
   };
 
   const clearForm = () => {
@@ -61,9 +62,11 @@ export default function Course() {
     setEditId(null);
   };
 
-  const filteredCourses = courses.filter(course =>
-    course.title.toLowerCase().startsWith(search.toLowerCase()) || search === ""
-  );
+  const filteredCourses = courses
+    .filter(course =>
+      course.title.toLowerCase().startsWith(searchQuery.toLowerCase()) || searchQuery === ""
+    )
+    .sort((a, b) => a.title.localeCompare(b.title));
 
   // ===== UI =====
   return (
@@ -121,9 +124,9 @@ export default function Course() {
       {/* SEARCH BAR */}
       <input
         className="border p-2 w-full mb-4"
-        placeholder="Search by first letter of course title"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search courses by title"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
 
       {/* COURSE LIST */}
