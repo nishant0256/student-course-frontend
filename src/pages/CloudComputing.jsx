@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import cloud from "../Image/cloud.png";
 
 export default function CloudComputing() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  } , []);
   return (
     <div className="min-h-screen bg-gray-50 py-20 px-6">
       <Link to="/" className="inline-block mb-6 bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition">Back to Home</Link>
@@ -69,6 +72,62 @@ export default function CloudComputing() {
                 <li>• Cost Optimization</li>
               </ul>
             </div>
+          </div>
+
+          <h3 className="text-xl font-semibold mb-3 text-teal-600">Detailed Syllabus</h3>
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="font-semibold text-gray-800 mb-3">Week 1-2: Cloud Computing Fundamentals</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Evolution and benefits of cloud computing</li>
+              <li>• IaaS, PaaS, SaaS service models</li>
+              <li>• Public, private, and hybrid clouds</li>
+              <li>• Cloud security and compliance basics</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 3-6: AWS Services and Solutions</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• EC2 instances and auto-scaling</li>
+              <li>• S3 storage classes and lifecycle policies</li>
+              <li>• RDS and DynamoDB database services</li>
+              <li>• VPC networking and security groups</li>
+              <li>• IAM roles and policies</li>
+              <li>• CloudFormation infrastructure as code</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 7-9: Microsoft Azure Platform</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Azure Virtual Machines and scale sets</li>
+              <li>• Azure Storage accounts and blob storage</li>
+              <li>• Azure SQL Database and Cosmos DB</li>
+              <li>• Azure Active Directory and RBAC</li>
+              <li>• Azure Resource Manager templates</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 10-12: Google Cloud Platform</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Compute Engine and App Engine</li>
+              <li>• Cloud Storage and persistent disks</li>
+              <li>• BigQuery and Cloud SQL</li>
+              <li>• Kubernetes Engine for containers</li>
+              <li>• Cloud Functions for serverless</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 13-15: Advanced Cloud Technologies</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Docker containerization</li>
+              <li>• Kubernetes orchestration</li>
+              <li>• Serverless computing with Lambda/Azure Functions</li>
+              <li>• Cloud migration strategies and tools</li>
+              <li>• Multi-cloud architectures</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 16: Cloud Projects and Certification</h4>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Building scalable cloud applications</li>
+              <li>• Cost optimization and monitoring</li>
+              <li>• Cloud security best practices</li>
+              <li>• Certification preparation and practice exams</li>
+            </ul>
           </div>
 
           <h3 className="text-xl font-semibold mb-3 text-teal-600">Prerequisites</h3>

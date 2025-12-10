@@ -1,46 +1,59 @@
 import { useEffect, useState } from "react";
-import API from "../api/api";
+import API from "../api/api.js";
 
 export default function Course() {
   const [courses, setCourses] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [id, setId] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [form, setForm] = useState({
+    id: "",
+    title: "",
+    description: "",
+  });
   const [editId, setEditId] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchCourses();
   }, []);
 
-  // ===== API CALLS =====
   const fetchCourses = async () => {
-    const res = await API.get("/courses");
-    setCourses(res.data);
+    try {
+      const res = await API.get("/courses");
+      setCourses(Array.isArray(res.data) ? res.data : []);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+      // Optionally set an error state to display to user
+      setCourses([]);
+    }
   };
 
-  const addCourse = async () => {
-    if (!title || !description) return;
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    await API.post("/courses", {
-      id,
-      title,
-      description,
-    });
-
-    clearForm();
-    fetchCourses();
+  const submitCourse = async () => {
+    try {
+      await API.post("/courses", {
+        id: form.id,
+        title: form.title,
+        description: form.description,
+      });
+      clearForm();
+      fetchCourses();
+    } catch (error) {
+      console.error("Error creating course:", error);
+    }
   };
 
   const updateCourse = async () => {
-    await API.put(`/courses/${editId}`, {
-      title,
-      description,
-    });
-
-    clearForm();
-    fetchCourses();
+    try {
+      await API.put(`/courses/${editId}`, {
+        title: form.title,
+        description: form.description,
+      });
+      clearForm();
+      fetchCourses();
+    } catch (error) {
+      console.error("Error updating course:", error);
+    }
   };
 
   const deleteCourse = async (id) => {
@@ -48,111 +61,80 @@ export default function Course() {
     fetchCourses();
   };
 
-  // ===== HELPERS =====
-  const editCourse = (course) => {
-    setTitle(course.title);
-    setDescription(course.description);
-    setEditId(course.id);
+  const editCourse = (c) => {
+    setEditId(c.id);
+    setForm({
+      id: c.id,
+      title: c.title,
+      description: c.description || "",
+    });
   };
 
   const clearForm = () => {
-    setId("");
-    setTitle("");
-    setDescription("");
+    setForm({ id: "", title: "", description: "" });
     setEditId(null);
   };
 
-  const filteredCourses = courses
-    .filter(course =>
-      course.title.toLowerCase().startsWith(searchQuery.toLowerCase()) || searchQuery === ""
-    )
-    .sort((a, b) => a.title.localeCompare(b.title));
-
-  // ===== UI =====
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Course Management</h2>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Course Management</h1>
 
-      {/* ADD / UPDATE COURSE */}
-      <div className="mb-6">
-        <input
-          className="border p-2 mr-2 w-40"
-          placeholder="Course ID"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-        />
-        <input
-          className="border p-2 mr-2 w-60"
-          placeholder="Course Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+      {/* FORM */}
+      <div className="bg-white p-4 rounded shadow mb-6">
+        <h2>{editId ? "Update Course" : "Add Course"}</h2>
 
-        <input
-          className="border p-2 mr-2 w-80"
-          placeholder="Course Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-
-        {editId ? (
-          <button
-            onClick={updateCourse}
-            className="bg-green-600 text-white px-4 py-2 mr-2"
-          >
-            Update
-          </button>
-        ) : (
-          <button
-            onClick={addCourse}
-            className="bg-blue-600 text-white px-4 py-2"
-          >
-            Add
-          </button>
+        {!editId && (
+          <input
+            name="id"
+            placeholder="ID"
+            value={form.id}
+            onChange={handleChange}
+            className="border p-2 mb-2 w-full"
+          />
         )}
 
-        {editId && (
-          <button
-            onClick={clearForm}
-            className="bg-gray-500 text-white px-4 py-2"
-          >
-            Cancel
-          </button>
-        )}
+        <input
+          name="title"
+          placeholder="Title"
+          value={form.title}
+          onChange={handleChange}
+          className="border p-2 mb-2 w-full"
+        />
+
+        <input
+          name="description"
+          placeholder="Description"
+          value={form.description}
+          onChange={handleChange}
+          className="border p-2 mb-2 w-full"
+        />
+
+        <button
+          onClick={editId ? updateCourse : submitCourse}
+          className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+        >
+          {editId ? "Update" : "Add"}
+        </button>
+        <button
+          onClick={clearForm}
+          className="bg-gray-400 text-white px-4 py-2 rounded"
+        >
+          Cancel
+        </button>
       </div>
 
-      {/* SEARCH BAR */}
-      <input
-        className="border p-2 w-full mb-4"
-        placeholder="Search courses by title"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-
       {/* COURSE LIST */}
-      <ul>
-        {filteredCourses.map((c) => (
-          <li
-            key={c.id}
-            className="border p-4 mb-3 flex justify-between rounded-md"
-          >
-            <div>
-              <p className="font-semibold text-lg">{c.title}</p>
-              <p className="text-sm text-gray-500 mb-1">ID: {c.id}</p>
-              <p className="text-sm text-gray-600">{c.description}</p>
-
-              <p className="text-sm mt-1">
-                <span className="font-medium">Students:</span>
-                {c.students?.length
-                  ? " " + c.students.map((s) => s.name).join(", ")
-                  : " None"}
-              </p>
-            </div>
-
-            <div className="flex items-center">
+      <div className="grid md:grid-cols-2 gap-4">
+        {courses.map((c) => (
+          <div key={c.id} className="bg-white p-4 rounded shadow">
+            <h3>{c.id}</h3>
+            <h3 className="font-bold">{c.title}</h3>
+            <p>{c.description}</p>
+            
+            <div className="flex gap-2 mt-2">
               <button
                 onClick={() => editCourse(c)}
-                className="bg-yellow-500 text-white px-3 py-1 mr-2 rounded"
+                className="bg-yellow-500 text-white px-3 py-1 rounded"
               >
                 Edit
               </button>
@@ -163,16 +145,9 @@ export default function Course() {
                 Delete
               </button>
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
-
-      {/* EMPTY STATE */}
-      {filteredCourses.length === 0 && (
-        <p className="text-center text-gray-500 mt-6">
-          {search ? "No courses match the search." : "No courses available."}
-        </p>
-      )}
+      </div>
     </div>
   );
 }

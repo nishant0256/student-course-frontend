@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import web from "../Image/web-dev.png";
 
 export default function WebDevelopment() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  } , []);
   return (
     <div className="min-h-screen bg-gray-50 py-20 px-6">
       <Link to="/" className="inline-block mb-6 bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition">Back to Home</Link>
@@ -69,6 +72,63 @@ export default function WebDevelopment() {
                 <li>• Portfolio Website</li>
               </ul>
             </div>
+          </div>
+
+          <h3 className="text-xl font-semibold mb-3 text-teal-600">Detailed Syllabus</h3>
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="font-semibold text-gray-800 mb-3">Week 1-2: HTML and CSS Fundamentals</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• HTML5 semantic elements and structure</li>
+              <li>• CSS3 selectors, properties, and layouts</li>
+              <li>• Flexbox and CSS Grid for responsive design</li>
+              <li>• CSS animations and transitions</li>
+              <li>• Bootstrap and Tailwind CSS frameworks</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 3-5: JavaScript Programming</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• JavaScript fundamentals and ES6+ features</li>
+              <li>• DOM manipulation and event handling</li>
+              <li>• Asynchronous programming with Promises and async/await</li>
+              <li>• AJAX and Fetch API for data retrieval</li>
+              <li>• JavaScript modules and build tools</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 6-8: React.js Development</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• React components, JSX, and props</li>
+              <li>• State management with useState and useEffect</li>
+              <li>• React Router for client-side routing</li>
+              <li>• Context API and Redux for global state</li>
+              <li>• React hooks and custom hooks</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 9-11: Back-End Development</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Node.js runtime and npm package management</li>
+              <li>• Express.js framework for server-side development</li>
+              <li>• RESTful API design and implementation</li>
+              <li>• JWT authentication and authorization</li>
+              <li>• MongoDB and Mongoose for data persistence</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 12-14: Full-Stack Integration</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Connecting React front-end with Node.js backend</li>
+              <li>• User authentication and session management</li>
+              <li>• File upload and cloud storage integration</li>
+              <li>• Real-time features with WebSockets</li>
+              <li>• API testing and documentation</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 15-16: Deployment and Advanced Topics</h4>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Version control with Git and GitHub</li>
+              <li>• Deployment to Vercel, Netlify, and Heroku</li>
+              <li>• Performance optimization and SEO</li>
+              <li>• Testing with Jest and React Testing Library</li>
+              <li>• Building and deploying full-stack applications</li>
+            </ul>
           </div>
 
           <h3 className="text-xl font-semibold mb-3 text-teal-600">Prerequisites</h3>

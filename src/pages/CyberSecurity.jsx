@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import cyber from "../Image/Cyber-secu.png";
 
+
 export default function CyberSecurity() {
+  useEffect(() => {
+ window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 py-20 px-6">
       <Link to="/" className="inline-block mb-6 bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition">Back to Home</Link>
@@ -69,6 +74,63 @@ export default function CyberSecurity() {
                 <li>• Security Auditing</li>
               </ul>
             </div>
+          </div>
+
+          <h3 className="text-xl font-semibold mb-3 text-teal-600">Detailed Syllabus</h3>
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="font-semibold text-gray-800 mb-3">Week 1-2: Cybersecurity Fundamentals</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Introduction to cybersecurity and its importance</li>
+              <li>• Types of cyber threats and attack vectors</li>
+              <li>• CIA triad: Confidentiality, Integrity, Availability</li>
+              <li>• Security principles and defense-in-depth strategy</li>
+              <li>• Legal and ethical considerations in cybersecurity</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 3-5: Network Security and Cryptography</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• TCP/IP protocols and network architecture</li>
+              <li>• Firewalls, VPNs, and network segmentation</li>
+              <li>• Cryptographic algorithms and key management</li>
+              <li>• Public Key Infrastructure (PKI) and certificates</li>
+              <li>• Secure communication protocols (SSL/TLS, IPsec)</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 6-8: Ethical Hacking and Penetration Testing</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Footprinting, reconnaissance, and OSINT</li>
+              <li>• Network scanning and vulnerability assessment</li>
+              <li>• System exploitation and privilege escalation</li>
+              <li>• Web application vulnerabilities (OWASP Top 10)</li>
+              <li>• Social engineering attacks and countermeasures</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 9-11: Advanced Security Topics</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Wireless network security and attacks</li>
+              <li>• Mobile platform security (iOS/Android)</li>
+              <li>• IoT security and embedded systems</li>
+              <li>• Cloud security and container security</li>
+              <li>• Database security and injection attacks</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 12-14: Incident Response and Forensics</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Incident response lifecycle and procedures</li>
+              <li>• Digital forensics and evidence collection</li>
+              <li>• Malware analysis and reverse engineering</li>
+              <li>• Log analysis and SIEM systems</li>
+              <li>• Business continuity and disaster recovery</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 15-16: Security Operations and Compliance</h4>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Security operations center (SOC) operations</li>
+              <li>• Compliance frameworks (GDPR, HIPAA, PCI-DSS)</li>
+              <li>• Risk assessment and management</li>
+              <li>• Security auditing and penetration testing reports</li>
+              <li>• Career preparation and certification guidance</li>
+            </ul>
           </div>
 
           <h3 className="text-xl font-semibold mb-3 text-teal-600">Prerequisites</h3>

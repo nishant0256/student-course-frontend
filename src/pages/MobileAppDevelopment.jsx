@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import mobile from "../Image/Mobile.png";
 
 export default function MobileAppDevelopment() {
+  useEffect(() => {
+     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50 py-20 px-6">
       <Link to="/" className="inline-block mb-6 bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition">Back to Home</Link>
@@ -69,6 +72,63 @@ export default function MobileAppDevelopment() {
                 <li>• App Deployment</li>
               </ul>
             </div>
+          </div>
+
+          <h3 className="text-xl font-semibold mb-3 text-teal-600">Detailed Syllabus</h3>
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="font-semibold text-gray-800 mb-3">Week 1-2: Mobile App Fundamentals</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Mobile app ecosystem and market overview</li>
+              <li>• Mobile UI/UX design principles and best practices</li>
+              <li>• Development environments setup (Android Studio, Xcode)</li>
+              <li>• App store guidelines and submission processes</li>
+              <li>• Mobile app monetization strategies</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 3-5: React Native Development</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• React Native fundamentals and architecture</li>
+              <li>• Components, props, and state management</li>
+              <li>• Navigation with React Navigation</li>
+              <li>• Redux and Context API for state management</li>
+              <li>• API integration and data fetching</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 6-8: Flutter and Dart Programming</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Dart programming language fundamentals</li>
+              <li>• Flutter widgets and material design</li>
+              <li>• State management with Provider and Bloc</li>
+              <li>• Firebase integration for backend services</li>
+              <li>• Platform-specific code and plugins</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 9-11: Native iOS Development</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Swift programming and iOS fundamentals</li>
+              <li>• UIKit and SwiftUI for interface design</li>
+              <li>• Core Data for local data persistence</li>
+              <li>• iOS APIs and device features integration</li>
+              <li>• App Store deployment and TestFlight</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 12-14: Native Android Development</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Kotlin programming for Android</li>
+              <li>• Android Jetpack components and architecture</li>
+              <li>• Room database and data persistence</li>
+              <li>• Android APIs and device features</li>
+              <li>• Google Play Store deployment</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 15-16: Advanced Topics and Projects</h4>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Cross-platform app development strategies</li>
+              <li>• App performance optimization and testing</li>
+              <li>• Push notifications and background services</li>
+              <li>• App security and user authentication</li>
+              <li>• Portfolio app development and deployment</li>
+            </ul>
           </div>
 
           <h3 className="text-xl font-semibold mb-3 text-teal-600">Prerequisites</h3>

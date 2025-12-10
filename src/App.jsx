@@ -13,6 +13,7 @@ import DevOps from "./pages/DevOps";
 import AIML from "./pages/AIML";
 import MobileAppDevelopment from "./pages/MobileAppDevelopment";
 import DatabaseManagement from "./pages/DatabaseManagement";
+import Login from "./pages/login.jsx";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/ai-ml" element={<AIML />} />
         <Route path="/mobile-app-development" element={<MobileAppDevelopment />} />
         <Route path="/database-management" element={<DatabaseManagement />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import prog from "../Image/OIP.jpg";
 
 export default function Programming() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50 py-20 px-6">
-      <Link to="/" className="inline-block mb-6 bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition">Back to Home</Link>
+      <Link to="/#courses" className="inline-block mb-6 bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition">Back to Home</Link>
       <div className="max-w-6xl mx-auto text-center">
         <img src={prog} alt="Programming" className="h-32 w-32 mx-auto mb-6 rounded-lg" />
         <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">Programming Course</h1>
@@ -69,6 +72,62 @@ export default function Programming() {
                 <li>• ES6+ Features</li>
               </ul>
             </div>
+          </div>
+
+          <h3 className="text-xl font-semibold mb-3 text-teal-600">Detailed Syllabus</h3>
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="font-semibold text-gray-800 mb-3">Week 1-2: Programming Fundamentals</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Introduction to Programming Languages</li>
+              <li>• Variables, Data Types, and Operators</li>
+              <li>• Conditional Statements and Loops</li>
+              <li>• Functions and Scope</li>
+              <li>• Basic Input/Output Operations</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 3-5: Python Programming</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Python Syntax and Basic Constructs</li>
+              <li>• Lists, Tuples, Dictionaries, and Sets</li>
+              <li>• Functions, Modules, and Packages</li>
+              <li>• File I/O and Exception Handling</li>
+              <li>• Introduction to Libraries: NumPy, Pandas</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 6-8: Java Programming</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Java Basics: Classes, Objects, Methods</li>
+              <li>• Inheritance, Polymorphism, Encapsulation</li>
+              <li>• Exception Handling and File I/O</li>
+              <li>• Collections Framework: Lists, Maps, Sets</li>
+              <li>• Multithreading and Concurrency</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 9-11: JavaScript & Web Development</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• JavaScript Fundamentals</li>
+              <li>• DOM Manipulation and Events</li>
+              <li>• Asynchronous Programming: Promises, Async/Await</li>
+              <li>• ES6+ Features: Arrow Functions, Modules</li>
+              <li>• Introduction to Frameworks: React Basics</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 12-13: Advanced Topics</h4>
+            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+              <li>• Algorithm Design and Analysis</li>
+              <li>• Data Structures: Trees, Graphs, Hash Tables</li>
+              <li>• Version Control with Git</li>
+              <li>• Testing and Debugging Techniques</li>
+              <li>• Best Practices for Code Quality</li>
+            </ul>
+
+            <h4 className="font-semibold text-gray-800 mb-3">Week 14-15: Capstone Project</h4>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Project Planning and Design</li>
+              <li>• Implementation using Multiple Languages</li>
+              <li>• Code Review and Optimization</li>
+              <li>• Presentation and Documentation</li>
+            </ul>
           </div>
 
           <h3 className="text-xl font-semibold mb-3 text-teal-600">Prerequisites</h3>
