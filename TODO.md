@@ -1,6 +1,11 @@
-# TODO for Adding Signup to Login Component
+# Login Redesign TODO
 
-- [ ] Update src/pages/login.jsx to add state for toggling between login and signup modes
-- [ ] Add toggle buttons/links to switch modes
-- [ ] Add signup form fields (email, password, confirm password) and submission handler with axios POST to /signup
-- [ ] Style the forms consistently with Tailwind CSS
+## Steps from Approved Plan
+
+- [x] Update form state and handlers (change to email, add rememberMe)
+- [x] Restructure JSX layout (split left/right)
+- [x] Add welcome text and social icons to left side
+- [x] Update form elements (inputs, checkbox, button, sign-up link) on right
+- [x] Apply comprehensive Tailwind styling to match reference image
+- [x] Refine to match project theme (teal/blue colors, icons, form styles)
+- [x] Test UI and functionality (run dev server, browser verification)

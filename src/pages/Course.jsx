@@ -158,16 +158,7 @@ export default function Course() {
             {editId ? "Update Course" : "Add Course"}
           </h2>
 
-          {!editId && (
-            <input
-              name="id"
-              type="number"
-              placeholder="ID (number)"
-              value={form.id}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent mb-3"
-            />
-          )}
+          
 
           <input
             name="title"
