@@ -14,27 +14,52 @@ import AIML from "./pages/AIML";
 import MobileAppDevelopment from "./pages/MobileAppDevelopment";
 import DatabaseManagement from "./pages/DatabaseManagement";
 import Login from "./pages/login.jsx";
+import Grade from "./pages/Grade";
+import Reports from "./pages/Reports";
+import Attendance from "./pages/Attendance";
+import PrivateRoute from "./auth/PrivateRoute";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/courses" element={<Course />} />
-        <Route path="/students" element={<Student />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/programming" element={<Programming />} />
-        <Route path="/web-development" element={<WebDevelopment />} />
-        <Route path="/data-science" element={<DataScience />} />
-        <Route path="/cloud-computing" element={<CloudComputing />} />
-        <Route path="/cyber-security" element={<CyberSecurity />} />
-        <Route path="/devops" element={<DevOps />} />
-        <Route path="/ai-ml" element={<AIML />} />
-        <Route path="/mobile-app-development" element={<MobileAppDevelopment />} />
-        <Route path="/database-management" element={<DatabaseManagement />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/courses" element={<Course />} />
+            <Route path="/students" element={<Student />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/programming" element={<Programming />} />
+            <Route path="/web-development" element={<WebDevelopment />} />
+            <Route path="/data-science" element={<DataScience />} />
+            <Route path="/cloud-computing" element={<CloudComputing />} />
+            <Route path="/cyber-security" element={<CyberSecurity />} />
+            <Route path="/devops" element={<DevOps />} />
+            <Route path="/ai-ml" element={<AIML />} />
+            <Route
+              path="/mobile-app-development"
+              element={<MobileAppDevelopment />}
+            />
+            <Route
+              path="/database-management"
+              element={<DatabaseManagement />}
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/grades" element={<Grade />} />
+            <Route path="/attendance" element={<Attendance />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route
+              path="/reports"
+              element={
+                <PrivateRoute roles={["ROLE_ADMIN", "ROLE_TEACHER"]}>
+                  <Reports />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   );
 }
