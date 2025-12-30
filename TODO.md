@@ -1,11 +1,9 @@
-# Login Redesign TODO
+# TODO: Replace Courses with Batches in Grade.jsx
 
-## Steps from Approved Plan
-
-- [x] Update form state and handlers (change to email, add rememberMe)
-- [x] Restructure JSX layout (split left/right)
-- [x] Add welcome text and social icons to left side
-- [x] Update form elements (inputs, checkbox, button, sign-up link) on right
-- [x] Apply comprehensive Tailwind styling to match reference image
-- [x] Refine to match project theme (teal/blue colors, icons, form styles)
-- [x] Test UI and functionality (run dev server, browser verification)
+- [ ] Update state variables: Change `courses` to `batches`, `setCourses` to `setBatches`
+- [ ] Update fetch function: Rename `fetchCourses` to `fetchBatches`, change API endpoint to "/batches"
+- [ ] Update useEffect: Call `fetchBatches` instead of `fetchCourses`
+- [ ] Update filter logic: Change `courseFilter` to `batchFilter`, update filtering to use batches
+- [ ] Update UI: Change course dropdown to batch dropdown, update table display to show batch info
+- [ ] Update form: Change courseId select to batchId, update labels and options
+- [ ] Ensure all references to courses are replaced with batches for full CRUD functionality

@@ -9,3 +9,91 @@ html, body, #root {
 body {
   background-color: #f3f4f6; /* light gray background */
 }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 1s ease-out forwards;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientMove 4s ease infinite alternate;
+}
+
+/* ===== Entrance Animations ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-fadeUp {
+  animation: fadeUp 0.9s ease-out both;
+}
+
+/* ===== Glass Card ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Hover Glow ===== */
+.hover-glow {
+  transition: all 0.35s ease;
+}
+.hover-glow:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 30px 60px rgba(20, 184, 166, 0.35);
+}
+
+/* ===== Section Divider Glow ===== */
+.section-glow {
+  position: relative;
+}
+.section-glow::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(circle, rgba(20,184,166,.15), transparent 70%);
+  z-index: -1;
+}
+
+/* ===== Gradient Text ===== */
+.text-gradient {
+  background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.input {
+  @apply w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none;
+}
+
+.btn-edit {
+  @apply flex items-center gap-1 px-3 py-1.5 bg-yellow-500 text-white rounded-md;
+}
+
+.btn-delete {
+  @apply flex items-center gap-1 px-3 py-1.5 bg-red-500 text-white rounded-md;
+}

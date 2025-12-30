@@ -1,148 +1,148 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import API from "../api/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../auth/auth";
-import { FaEnvelope, FaLock, FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
-import cloud from "../Image/cloud.png";
 
-export default function Login() {
-  const [form, setForm] = useState({ email: "", password: "", rememberMe: false });
+export default function Auth() {
+  const [mode, setMode] = useState("login"); // login | signup
   const navigate = useNavigate();
 
-  
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  const handleCheckboxChange = (e) => {
-    setForm({ ...form, rememberMe: e.target.checked });
-  };
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = async () => {
     try {
-      const payload = {
-        username: form.email, // backend expects username
-        password: form.password,
-      };
-      const res = await API.post("/auth/login", payload);
-      const { token, username, role } = res.data;
-      auth.saveToken(token);
-      auth.saveUser(username);
-      auth.saveRole(role);
-      if (form.rememberMe) {
-        localStorage.setItem("rememberMe", "true");
+      if (mode === "login") {
+        const res = await API.post("/auth/login", {
+          username: form.email,
+          password: form.password,
+        });
+        auth.saveToken(res.data.token);
+        auth.saveUser(res.data.username);
+        auth.saveRole(res.data.role);
+        toast.success("Welcome back 👋");
+        navigate("/");
+        window.location.reload();
       } else {
-        localStorage.removeItem("rememberMe");
+        await API.post("/auth/signup", form);
+        toast.success("Account created 🎉");
+        setMode("login");
       }
-      toast.success("Logged in");
-      navigate("/");
-      window.location.reload(); // to update navbar
     } catch (e) {
-      toast.error(e.response?.data?.message || e.message || "Login failed");
+      toast.error(e.response?.data?.message || "Something went wrong");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-6xl mx-auto">
-        <div className="flex flex-col lg:flex-row bg-gradient-to-br from-teal-600 via-teal-700 to-blue-700 text-white rounded-xl shadow-xl overflow-hidden">
-          {/* Left Side: Welcome */}
-          <div className="flex-1 p-12 flex flex-col justify-center relative" style={{ backgroundImage: `url(${cloud})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative z-10 max-w-sm mx-auto">
-              <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-teal-200 to-white bg-clip-text text-transparent">Welcome</h1>
-              <p className="text-teal-100 text-lg mb-10">Enter your details to sign in to your account</p>
-              <div className="flex space-x-4">
-                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-opacity-30 transition-opacity">
-                  <FaTwitter className="w-6 h-6" />
-                </div>
-                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-opacity-30 transition-opacity">
-                  <FaFacebook className="w-6 h-6" />
-                </div>
-                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-opacity-30 transition-opacity">
-                  <FaInstagram className="w-6 h-6" />
-                </div>
-              </div>
+    <div className="min-h-screen flex items-center justify-center bg-[#0f172a] relative overflow-hidden">
+      {/* Gradient blobs */}
+      <div className="absolute w-96 h-96 bg-teal-500/30 rounded-full blur-3xl -top-20 -left-20" />
+      <div className="absolute w-96 h-96 bg-blue-500/30 rounded-full blur-3xl bottom-0 right-0" />
+
+      <div className="relative z-10 w-full max-w-md">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={mode}
+            initial={{ opacity: 0, x: mode === "login" ? 80 : -80, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: mode === "login" ? -80 : 80, scale: 0.95 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl p-8"
+          >
+            <h2 className="text-3xl font-bold text-white mb-2">
+              {mode === "login" ? "Welcome Back" : "Create Account"}
+            </h2>
+            <p className="text-gray-300 mb-8">
+              {mode === "login"
+                ? "Sign in to continue"
+                : "Join us and start your journey"}
+            </p>
+
+            <div className="space-y-5">
+              {mode === "signup" && (
+                <Input
+                  icon={<FaUser />}
+                  name="name"
+                  placeholder="Full Name"
+                  value={form.name}
+                  onChange={handleChange}
+                />
+              )}
+
+              <Input
+                icon={<FaEnvelope />}
+                name="email"
+                placeholder="Email address"
+                value={form.email}
+                onChange={handleChange}
+              />
+
+              <Input
+                icon={<FaLock />}
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+              />
+
+              <button
+                onClick={submit}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold tracking-wide hover:scale-[1.02] transition-transform"
+              >
+                {mode === "login" ? "Sign In" : "Sign Up"}
+              </button>
             </div>
-          </div>
-          {/* Right Side: Form */}
-          <div className="flex-1 p-12 bg-white">
-            <div className="max-w-md mx-auto">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Sign in</h2>
-              <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); submit(); }}>
-                <div className="relative">
-                  <label htmlFor="email" className="sr-only">Email</label>
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaEnvelope className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    id="email"
-                    name="email"
-                    type="text"
-                    required
-                    className="block w-full pl-10 pr-3 py-4 border-2 border-gray-200 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/20 transition-all duration-300 bg-gray-50"
-                    placeholder="Enter your email"
-                    value={form.email}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="relative">
-                  <label htmlFor="password" className="sr-only">Password</label>
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaLock className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    className="block w-full pl-10 pr-3 py-4 border-2 border-gray-200 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/20 transition-all duration-300 bg-gray-50"
-                    placeholder="Enter password"
-                    value={form.password}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <input
-                      id="rememberMe"
-                      name="rememberMe"
-                      type="checkbox"
-                      className="h-5 w-5 text-teal-600 focus:ring-teal-500 border-gray-300 rounded focus:outline-none transition-all duration-300"
-                      checked={form.rememberMe}
-                      onChange={handleCheckboxChange}
-                    />
-                    <label htmlFor="rememberMe" className="ml-3 block text-sm font-medium text-gray-700">
-                      Remember me
-                    </label>
-                  </div>
-                  <div className="text-sm">
-                    <Link to="/forgot-password" className="font-medium text-teal-600 hover:text-teal-500 transition-colors">
-                      Forgot password?
-                    </Link>
-                  </div>
-                </div>
-                <div>
+
+            <p className="mt-6 text-center text-gray-300 text-sm">
+              {mode === "login" ? (
+                <>
+                  Don’t have an account?{" "}
                   <button
-                    type="submit"
-                    className="group relative w-full flex justify-center py-4 px-6 border border-transparent text-base font-semibold rounded-xl text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 shadow-md transform hover:scale-105 transition-all duration-300"
+                    onClick={() => setMode("signup")}
+                    className="text-teal-400 font-semibold hover:underline"
                   >
-                    Sign in now
-                  </button>
-                </div>
-              </form>
-              <div className="mt-8 text-center">
-                <p className="text-sm text-gray-600">
-                  Don't have an account?{" "}
-                  <Link to="/signup" className="font-semibold text-teal-600 hover:text-teal-500 hover:underline transition-colors">
                     Sign up
-                  </Link>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have an account?{" "}
+                  <button
+                    onClick={() => setMode("login")}
+                    className="text-teal-400 font-semibold hover:underline"
+                  >
+                    Login
+                  </button>
+                </>
+              )}
+            </p>
+          </motion.div>
+        </AnimatePresence>
       </div>
+    </div>
+  );
+}
+
+function Input({ icon, ...props }) {
+  return (
+    <div className="relative">
+      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+        {icon}
+      </span>
+      <input
+        {...props}
+        className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
+      />
     </div>
   );
 }

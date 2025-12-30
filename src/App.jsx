@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Student from "./pages/Student";
 import Course from "./pages/Course";
 import Home from "./pages/home";
+import Batches from "./pages/Batches";
 import Programming from "./pages/Programming";
 import WebDevelopment from "./pages/WebDevelopment";
 import DataScience from "./pages/DataScience";
@@ -47,6 +48,7 @@ export default function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/grades" element={<Grade />} />
+            <Route path="/batches" element={<Batches />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/reports" element={<Reports />} />
             <Route
